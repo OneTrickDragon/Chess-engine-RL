@@ -18,17 +18,24 @@ class ChessEnv:
         return self.board.legal_moves
     
     def step(self, move):
-        self.board.push_san(move)
+        if isinstance(move, str):
+            self.board.push_san(move)
+        else:
+            self.board.push(move)
 
-        if self.board.is_checkmate:
+        if self.board.is_checkmate():
             if self.board.turn:
-                reward = 1
-                return self.get_state(), reward, True
-            else:
                 reward = -1
                 return self.get_state(), reward, True
+            else:
+                reward = 1
+                return self.get_state(), reward, True
         
-        if self.board.is_stalemate or self.board.is_repetition or self.board.is_fifty_moves:
+        if self.board.is_stalemate() or self.board.is_repetition() or self.board.is_fifty_moves():
             reward = 0
             return self.get_state(), reward, True
+
+        return self.get_state(), 0, False
+    
+
 
