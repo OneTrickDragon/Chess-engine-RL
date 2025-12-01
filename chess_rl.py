@@ -80,4 +80,15 @@ class MoveEncoder:
         """Get indices of all legal moves for current position"""
         return [self.move_to_index[move] for move in board.legal_moves 
                 if move in self.move_to_index]
+    
+    def get_action_mask(self, board):
+        """
+        Get a binary mask of legal actions.
+        Returns a numpy array of shape (num_actions,) where 1 = legal, 0 = illegal
+        """
+        mask = np.zeros(self.num_actions, dtype=np.float32)
+        for move in board.legal_moves:
+            if move in self.move_to_index:
+                mask[self.move_to_index[move]] = 1
+        return mask
 
