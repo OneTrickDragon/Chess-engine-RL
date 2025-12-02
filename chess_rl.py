@@ -92,3 +92,6 @@ class MoveEncoder:
                 mask[self.move_to_index[move]] = 1
         return mask
 
+class Agent:
+    def __init__(self):
+        pass
