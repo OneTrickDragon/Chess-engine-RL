@@ -93,5 +93,9 @@ class MoveEncoder:
         return mask
 
 class Agent:
-    def __init__(self):
-        pass
+    def __init__(self, player_id, epsilon=0.1, alpha=0.1):
+        self.player_id = player_id  # 1 for X, -1 for O
+        self.q_table = defaultdict(lambda: defaultdict(float))
+        self.epsilon = epsilon
+        self.alpha = alpha
+        self.gamma = 0.9
